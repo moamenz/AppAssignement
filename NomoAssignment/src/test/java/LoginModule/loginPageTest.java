@@ -55,8 +55,6 @@ public class loginPageTest {
             Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service"));
         } else if (username.isEmpty() || password.isEmpty()) {
             // Verify no user details or no password scenario
-        	 
-        	//WebElement errorMessage = driver.findElement(By.id("errorMessage"));
             WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
             // Assert that errorMessage contains" username and password are required"
             Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service."));
