@@ -1,19 +1,25 @@
 package LoginModule;
 
+import static org.testng.Assert.assertTrue;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
+import org.testng.Assert;
 import io.appium.java_client.android.AndroidDriver;
+
 
 public class loginPageTest {
 	File appApk = new File("appFile/Android-MyDemoAppRN.1.3.0.build-244.apk");
+	private AndroidDriver driver;
 	
 	@BeforeClass
 	public void setup() throws MalformedURLException {
@@ -34,28 +40,34 @@ public class loginPageTest {
 		login.enterPasswrod(password);
 		login.submit();
 		
-		/* // Verify login result based on the scenario
+		
         if (username.equals("alice@example.com") && password.equals("10203040")) {
-            // Verify user is locked scenario
-            WebElement errorMessage = driver.findElement(By.id("errorMessage"));
+        	
+        	//WebDriverWait wait = new WebDriverWait(10);
+            
+        	// Verify user is locked scenario
+            WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Sorry, this user has been locked out.\"]"));
+
             // Assert that errorMessage contains "User locked"
-            // Assert.assertTrue(errorMessage.getText().contains("User locked"));
+            Assert.assertTrue(errorMessage.getText().contains("Sorry, this user has been locked out."));
         } else if (username.equals("1@2.com") && password.equals("f-o-o")) {
             // Verify no match scenario
-            WebElement errorMessage = driver.findElement(By.id("errorMessage"));
+            WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
             // Assert that errorMessage contains "No match"
-            // Assert.assertTrue(errorMessage.getText().contains("No match"));
+            Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service"));
         } else if (username.isEmpty() || password.isEmpty()) {
             // Verify no user details or no password scenario
-            WebElement errorMessage = driver.findElement(By.id("errorMessage"));
-            // Assert that errorMessage contains "Username and password are required"
-            // Assert.assertTrue(errorMessage.getText().contains("Username and password are required"));
+        	 
+        	//WebElement errorMessage = driver.findElement(By.id("errorMessage"));
+            WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
+            // Assert that errorMessage contains" username and password are required"
+            Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service."));
         } else {
             // Verify standard login scenario
-            WebElement welcomeMessage = driver.findElement(By.id("welcomeMessage"));
+            WebElement checkoutHeader = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Checkout\"]"));
             // Assert that welcomeMessage is displayed
-            // Assert.assertTrue(welcomeMessage.isDisplayed());
-        }*/
+            Assert.assertTrue(checkoutHeader.isDisplayed());
+        }
 		
 	}
 	
