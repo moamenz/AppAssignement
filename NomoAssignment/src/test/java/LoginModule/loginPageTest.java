@@ -81,7 +81,7 @@ public class loginPageTest {
 	
 	@AfterClass
 	public void close() {
-		// Close the browser
+		// Close the driverrr
         if (driver != null) {
             driver.quit();
         }
