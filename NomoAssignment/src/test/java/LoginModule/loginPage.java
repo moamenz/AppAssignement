@@ -1,35 +1,39 @@
 package LoginModule;
 
-import org.openqa.selenium.WebElement;
-
-import io.appium.java_client.pagefactory.AndroidFindBy;
-
+import org.bouncycastle.oer.its.ieee1609dot2.basetypes.Duration;
+import org.openqa.selenium.By;
+import io.appium.java_client.android.AndroidDriver;
 public class loginPage {
+	AndroidDriver driver;
 	
-	@AndroidFindBy (className = "android.widget.ImageView") public WebElement sideMenu;
-	@AndroidFindBy (xpath = "//android.view.ViewGroup[@content-desc=\\\"menu item log in\\\"]") public WebElement loginPageTab;
-	@AndroidFindBy (xpath = "//android.widget.EditText[@content-desc=\\\"Username input field\\\"]") public WebElement usernameField;
-	@AndroidFindBy (xpath = "//android.widget.EditText[@content-desc=\\\"Password input field\\\"]") public WebElement passwordField;
-	@AndroidFindBy (xpath = "(//android.widget.TextView[@text=\\\"Login\\\"])[2]") public WebElement loginButton;
+	By sidemenu = By.className("android.widget.ImageView");
+	By loginPageTab = By.xpath("//android.view.ViewGroup[@content-desc=\"menu item log in\"]");
+	By usernameField = By.xpath("//android.widget.EditText[@content-desc=\"Username input field\"]");
+	By passwordField = By.xpath("//android.widget.EditText[@content-desc=\"Password input field\"]");
+	By loginButton = By.xpath("//android.view.ViewGroup[@content-desc=\"Login button\"]");
 	
+	public loginPage(AndroidDriver driver) {
+		this.driver = driver;
+    }
 	
-	public void navigateToLoginPage() {
-		sideMenu.click();
-		loginPageTab.click();
+	public void navigateToLoginPage() throws InterruptedException {
+		driver.findElement(sidemenu).click();
+		driver.findElement(loginPageTab).click();
+		Thread.sleep(6, Duration.seconds);
 	}
 	
 	public void enterUsername(String username) {
 		
-		usernameField.sendKeys(username);
+		driver.findElement(usernameField).sendKeys(username);
 	}
 	
 	public void enterPasswrod(String passwrod) {
-		passwordField.sendKeys(passwrod);
+		driver.findElement(passwordField).sendKeys(passwrod);
 	}
 	
 	public void submit() {
 		
-		loginButton.click();
+		driver.findElement(loginButton).click();
 	}
 	
 	

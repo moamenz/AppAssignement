@@ -25,14 +25,14 @@ public class loginPageTest {
 		caps.setCapability("deviceName", "Moamens Emulator");
 		caps.setCapability("app", appApk.getAbsolutePath());
 		
-		AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@Test(dataProvider ="loginUsers")
-	public void loginTest(String username, String password) {
+	public void loginTest(String username, String password) throws InterruptedException {
 		
-		loginPage login = new loginPage();
+		loginPage login = new loginPage(driver);
 		login.navigateToLoginPage();
 		login.enterUsername(username);
 		login.enterPasswrod(password);
@@ -81,7 +81,7 @@ public class loginPageTest {
 	
 	@AfterClass
 	public void close() {
-		// Close the driverrr
+		// Close the driver
         if (driver != null) {
             driver.quit();
         }
