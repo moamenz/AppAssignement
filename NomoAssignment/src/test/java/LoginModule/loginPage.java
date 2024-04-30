@@ -34,6 +34,16 @@ public class loginPage {
 	public void submit() {
 		
 		driver.findElement(loginButton).click();
+		
+	}
+	
+	public void clearUsername() {
+		driver.findElement(usernameField).clear();  //
+		 //
+	}
+	public void clearPassword() {
+		
+		driver.findElement(passwordField).clear();  //
 	}
 	
 	

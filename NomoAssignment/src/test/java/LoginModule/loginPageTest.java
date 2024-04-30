@@ -39,30 +39,53 @@ public class loginPageTest {
 		login.submit();
 		
 		
+		
         if (username.equals("alice@example.com") && password.equals("10203040")) {
-        	
-        	//WebDriverWait wait = new WebDriverWait(10);
-            
+        	           
         	// Verify user is locked scenario
             WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Sorry, this user has been locked out.\"]"));
-
             // Assert that errorMessage contains "User locked"
             Assert.assertTrue(errorMessage.getText().contains("Sorry, this user has been locked out."));
+            login.clearUsername();
+            login.clearPassword();
         } else if (username.equals("1@2.com") && password.equals("f-o-o")) {
             // Verify no match scenario
             WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
             // Assert that errorMessage contains "No match"
             Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service"));
-        } else if (username.isEmpty() || password.isEmpty()) {
-            // Verify no user details or no password scenario
-            WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
-            // Assert that errorMessage contains" username and password are required"
-            Assert.assertTrue(errorMessage.getText().contains("Provided credentials do not match any user in this service."));
-        } else {
+            login.clearUsername();
+            login.clearPassword();
+            
+        } else if (username.isEmpty()) {
+            // Verify no userName scenario
+            WebElement usernameValidation = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Username is required\"]"));
+            
+            // Assert that errorMessage contains" userName required"
+            Assert.assertTrue(usernameValidation.isDisplayed());
+            login.clearPassword();
+
+            
+         } else if (password.isEmpty()) {
+            // Verify no password scenario
+            WebElement passwordValidation = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Password is required\"]"));
+            // Assert password are required"
+            Assert.assertTrue(passwordValidation.isDisplayed());
+            login.clearUsername();
+    
+            
+        } else if (password.isEmpty() && username.isEmpty()) {
+            // Verify no password  and no userName scenario
+           
+        	 WebElement errorMessage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Provided credentials do not match any user in this service.\"]"));
+             // Assert that errorMessage contains" userName and password are required"
+             Assert.assertTrue(errorMessage.isDisplayed());   
+             
+            
+        }  else {
             // Verify standard login scenario
-            WebElement checkoutHeader = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Checkout\"]"));
-            // Assert that welcomeMessage is displayed
-            Assert.assertTrue(checkoutHeader.isDisplayed());
+            WebElement productsPage = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Products\"]"));
+            // Assert that user redirected to the product page
+            Assert.assertTrue(productsPage.isDisplayed());
         }
 		
 	}
