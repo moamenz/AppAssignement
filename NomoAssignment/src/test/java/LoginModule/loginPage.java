@@ -38,12 +38,11 @@ public class loginPage {
 	}
 	
 	public void clearUsername() {
-		driver.findElement(usernameField).clear();  //
-		 //
+		driver.findElement(usernameField).clear();  
 	}
 	public void clearPassword() {
 		
-		driver.findElement(passwordField).clear();  //
+		driver.findElement(passwordField).clear();  
 	}
 	
 	
